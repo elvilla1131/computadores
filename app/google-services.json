@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "713539088853",
+    "firebase_url": "https://computadores-28cc8.firebaseio.com",
+    "project_id": "computadores-28cc8",
+    "storage_bucket": "computadores-28cc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713539088853:android:41fe3f0093151f46",
+        "android_client_info": {
+          "package_name": "com.elvilla.computadores"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713539088853-eko44pbh06khi29pdk4grkirif8qmjom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elvilla.computadores",
+            "certificate_hash": "e1eeaaf07e447b4c5c873c7cc3a93f8f53f7104a"
+          }
+        },
+        {
+          "client_id": "713539088853-rcpj1tf4ehjb2e9fuofcccc2uhhe10i5.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "713539088853-rcpj1tf4ehjb2e9fuofcccc2uhhe10i5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTMuBf1qiqKBxH2EuFmQbdP6yG-Bu_9YM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713539088853-rcpj1tf4ehjb2e9fuofcccc2uhhe10i5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

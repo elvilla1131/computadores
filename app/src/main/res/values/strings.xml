@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Computadores</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_detalle__computadores">Detalle_Computadores</string>
+    <string name="title_activity_crear_computador">CrearComputador</string>
+    <string name="computadores">Computadores</string>
+    <string name="marca">Marca:</string>
+    <string-array name="marca2">
+        <item>@string/samsung</item>
+    </string-array>
+    <string name="ram">Ram:</string>
+    <string name="color">Color</string>
+    <string name="tipo">Tipo</string>
+    <string name="so">S.O.</string>
+    <string name="crear">Crear</string>
+    <string name="limpiar">Limpiar</string>
+
+
 </resources>

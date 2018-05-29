@@ -1,15 +1,34 @@
 package com.elvilla.computadores;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Principal extends AppCompatActivity {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class Principal extends AppCompatActivity implements AdaptadorComputadores.onComputadoresClickListener{
+    private RecyclerView lstOpciones;
+    private Intent i;
+    private ArrayList<Computadores> computador;
+    private AdaptadorComputadores adapter;
+    private LinearLayoutManager llm;
+    private DatabaseReference databaseReference;
+    private String bd = "Computadores";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,35 +37,62 @@ public class Principal extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        lstOpciones = findViewById(R.id.lstOpciones);
+
+
+        computador = new ArrayList<>();
+
+        llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        adapter = new AdaptadorComputadores(computador,this);
+
+        lstOpciones.setLayoutManager(llm);
+        lstOpciones.setAdapter(adapter);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(bd).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                computador.clear();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        Computadores p = snapshot.getValue(Computadores.class);
+                        Computadores.add(p);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Datos.setComputadores(computador);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_principal, menu);
-        return true;
+    public void crearPersonas(View v){
+        i = new Intent(Principal.this,CrearComputadores.class);
+        startActivity(i);
+
+
+        //Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+        //      .setAction("Action", null).show();
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onPersonaClick(Computadores p) {
+        Intent i = new Intent(Principal.this,DetalleComputadores.class);
+        Bundle b = new Bundle();
+        b.putInt("marca",p.getMarca());
+        b.putInt("ram",p.getRam());
+        b.putInt("color",p.getColor());
+        b.putInt("tipo",p.getTipo());
+        b.putInt("so",p.getSo());
+        b.putInt("foto",p.getFoto());
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        i.putExtra("datos",b);
+        startActivity(i);
 
-        return super.onOptionsItemSelected(item);
     }
 }
